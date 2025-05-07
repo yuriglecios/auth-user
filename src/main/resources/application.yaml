@@ -6,3 +6,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/ead-auth-user
     username: postgres
     password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
+      jdbc:
+        lob-non-contextual-creation: true
