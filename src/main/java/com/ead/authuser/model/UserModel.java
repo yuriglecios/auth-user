@@ -2,6 +2,8 @@ package com.ead.authuser.model;
 
 import com.ead.authuser.model.enums.UserStatus;
 import com.ead.authuser.model.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -25,6 +27,7 @@ public class UserModel implements Serializable {
     @Column(nullable = false, unique = true, length = 50)
     private String email;
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
     @Column(nullable = false, length = 250)
     private String fullName;
@@ -35,8 +38,10 @@ public class UserModel implements Serializable {
     @Column
     private String imageUrl;
     @Column(nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private LocalDateTime creationDate;
     @Column(nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private LocalDateTime lastUpdateDate;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
