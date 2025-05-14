@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface UserServiceInterface {
     public List<UserModel> getAllUsers();
     public Optional<UserModel> getOneUser(UUID userId);
+
+    public void deleteUser(UserModel userModel);
 }

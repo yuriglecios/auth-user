@@ -39,4 +39,19 @@ public class UserController {
                         .status(HttpStatus.NOT_FOUND)
                         .build());
     }
+
+    @DeleteMapping("{userId}")
+    public ResponseEntity<Object> deleteOneUser(@PathVariable(value = "userId" ) UUID userId) {
+        Optional<UserModel> user = userService.getOneUser(userId);
+        return user.map(
+                userModel -> {
+                    userService.deleteUser(userModel);
+                    return ResponseEntity
+                            .status(HttpStatus.OK)
+                            .build();
+                })
+                .orElseGet(() -> ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .build());
+    }
 }
