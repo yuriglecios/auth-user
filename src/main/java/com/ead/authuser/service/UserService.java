@@ -5,6 +5,8 @@ import com.ead.authuser.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserServiceInterface{
@@ -19,4 +21,10 @@ public class UserService implements UserServiceInterface{
     public List<UserModel> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public Optional<UserModel> getOneUser(UUID userId) {
+        return userRepository.findById(userId);
+    }
+
 }

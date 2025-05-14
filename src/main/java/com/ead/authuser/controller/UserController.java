@@ -4,12 +4,11 @@ import com.ead.authuser.model.UserModel;
 import com.ead.authuser.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -27,5 +26,17 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.getAllUsers());
+    }
+
+    @GetMapping("{userId}")
+    public ResponseEntity<UserModel> getOneUser(@PathVariable(value = "userId" ) UUID userId) {
+        Optional<UserModel> user = userService.getOneUser(userId);
+        return user.map(
+                userModel -> ResponseEntity
+                        .status(HttpStatus.OK)
+                        .body(userModel))
+                .orElseGet(() -> ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .build());
     }
 }
