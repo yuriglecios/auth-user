@@ -24,6 +24,12 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<Object> signup(@RequestBody UserDTO userDTO) {
+        if(userService.existsByUsername(userDTO.getUsername())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username is already taken!");
+        }
+        if(userService.existsByEmail(userDTO.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email is already taken!");
+        }
         var userModel = new UserModel();
         BeanUtils.copyProperties(userModel, userDTO);
         userModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
