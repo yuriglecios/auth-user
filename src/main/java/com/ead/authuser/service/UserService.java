@@ -32,4 +32,9 @@ public class UserService implements UserServiceInterface{
         userRepository.delete(userModel);
     }
 
+    @Override
+    public void saveUser(UserModel userModel) {
+        userRepository.save(userModel);
+    }
+
 }

@@ -11,4 +11,6 @@ public interface UserServiceInterface {
     public Optional<UserModel> getOneUser(UUID userId);
 
     public void deleteUser(UserModel userModel);
+
+    void saveUser(UserModel userModel);
 }

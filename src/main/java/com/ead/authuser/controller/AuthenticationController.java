@@ -4,6 +4,7 @@ import com.ead.authuser.dto.UserDTO;
 import com.ead.authuser.model.UserModel;
 import com.ead.authuser.service.UserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class AuthenticationController {
         BeanUtils.copyProperties(userModel, userDTO);
         userModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
         userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
-        //salvar
-        return null;
+        userService.saveUser(userModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userModel);
     }
 }
