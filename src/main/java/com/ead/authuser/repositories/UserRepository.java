@@ -10,11 +10,12 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, UUID> {
+
     List<UserModel> findAll();
 
     Optional<UserModel> findByUserId(UUID userId);
 
-    UserModel deleteUser(UserModel userModel);
+    UserModel deleteByUserId(UUID userId);
 
     boolean existsByUsername(String username);
 

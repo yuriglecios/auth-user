@@ -2,6 +2,8 @@ package com.ead.authuser.controller;
 
 import com.ead.authuser.dto.UserDTO;
 import com.ead.authuser.model.UserModel;
+import com.ead.authuser.model.enums.UserStatus;
+import com.ead.authuser.model.enums.UserType;
 import com.ead.authuser.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -31,9 +33,11 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email is already taken!");
         }
         var userModel = new UserModel();
-        BeanUtils.copyProperties(userModel, userDTO);
+        BeanUtils.copyProperties(userDTO, userModel);
         userModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
         userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
+        userModel.setUserType(UserType.STUDENT);
+        userModel.setUserStatus(UserStatus.ACTIVE);
         userService.saveUser(userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(userModel);
     }
